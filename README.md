@@ -66,12 +66,12 @@ order by tran_date desc;
 select prod_subcat, prod_cat from p_retail_sales.prod_cat_info
 where prod_subcat ='DIY';
 
--- ============================================================================================================
 --------------------------------------------------DATA ANALYSIS--------------------------------------------------
 
 -- #1. Most frequently used channel for tansactions. 
 
-select Store_type, count(store_type) as Count_of_stores from P_Retail_sales.Transactions
+select Store_type, count(store_type) as Count_of_stores 
+from P_Retail_sales.Transactions
 group by store_type 
 order by Count_of_stores desc
 Limit 1;
@@ -82,7 +82,8 @@ update P_Retail_sales.Customers
 set gender = 'Unknown'
 where gender = ' '
 
-select gender, count(gender) as Total_count from P_Retail_sales.Customers
+select gender, count(gender) as Total_count 
+from P_Retail_sales.Customers
 group by gender
 order by 
 case 
@@ -93,14 +94,16 @@ end;
 
 -- #3. Maximim number of customers belong to which city.
 
-select (city_code), count(city_code) as Count_city from P_Retail_sales.Customers
+select (city_code), count(city_code) as Count_city 
+from P_Retail_sales.Customers
 group by city_code
 order by Count_city desc 
 limit 1;
 
 -- #4. Number of sub_categories under the Category Books.
 
-select prod_cat, count(prod_subcat) as No_of_subcat  from P_Retail_sales.prod_cat_info
+select prod_cat, count(prod_subcat) as No_of_subcat  
+from P_Retail_sales.prod_cat_info
 where prod_cat = 'Books'
 group by prod_cat  
 
@@ -108,7 +111,8 @@ group by prod_cat
 
 #join on transactions1 table with Prod_cat_info table using key column "prod_cat_code"
 
-select (tran_date), count(prod_cat) as No_of_products from P_Retail_sales.Transactions1 as T
+select (tran_date), count(prod_cat) as No_of_products 
+from P_Retail_sales.Transactions1 as T
 inner join P_Retail_sales.prod_cat_info as P
 on T.prod_cat_code = P.prod_cat_code  
 group by tran_date     
@@ -117,7 +121,8 @@ Limit 1;
 
 -- #6. Net total revenue generated from Books and Electronics category.
 
-select sum(total_amt) as Total_amount from P_Retail_sales.Transactions1 as T
+select sum(total_amt) as Total_amount 
+from P_Retail_sales.Transactions1 as T
 inner join P_Retail_sales.prod_cat_info as P
 on T.prod_subcat_code = P.prod_sub_cat_code
 where prod_cat in ('Books','Electronics')
@@ -125,7 +130,8 @@ where prod_cat in ('Books','Electronics')
 -- #7. Number of customers having more than 10 transactions,excluding returns.
 
 with Alpha
-as (select cust_id ,count(transaction_id)as Count_of_trans from P_Retail_sales.Transactions1
+as (select cust_id ,count(transaction_id)as Count_of_trans 
+from P_Retail_sales.Transactions1
 where total_amt > 0 
 group by cust_id
 having count(transaction_id)>10)
@@ -135,7 +141,8 @@ select count(cust_id) as Num_of_customers from Alpha
 
 -- ~~~~ Product category and Product item count ~~~~~
 
-select prod_subcat, count(prod_cat) as Item_count from P_Retail_sales.Transactions1 as T
+select prod_subcat, count(prod_cat) as Item_count 
+from P_Retail_sales.Transactions1 as T
 inner join P_Retail_sales.prod_cat_info as P 
 on T. prod_cat_code = P.prod_cat_code
 where prod_cat in ('Electronics','Clothing')
@@ -143,14 +150,16 @@ group by prod_subcat
 order by Item_count desc;
 
 -- ~~~~~~~ TOTAL REVENUE GENERATED ~~~~~~~
-select sum(total_amt) as Total_Revenue from P_Retail_sales.Transactions1 as T
+select sum(total_amt) as Total_Revenue 
+from P_Retail_sales.Transactions1 as T
 inner join P_Retail_sales.prod_cat_info as P 
 on T. prod_subcat_code = P.prod_sub_cat_code
 where prod_cat in ('Electronics','Clothing') and store_type = 'Flagship store';
 
 -- #9. Total revenue generated from Male customers in Electronics segment.{output w.r.t. prod_subcat}
 
-select prod_subcat,sum(total_amt) as Amt_by_males from P_Retail_sales.Transactions1 as T
+select prod_subcat,sum(total_amt) as Amt_by_males 
+from P_Retail_sales.Transactions1 as T
 inner join P_Retail_sales.Customers as C
 on T.cust_id = C.customer_Id
 inner join P_Retail_sales.prod_cat_info as P 
@@ -183,7 +192,8 @@ limit 30;
 ALTER TABLE customers MODIFY COLUMN DOB date;
                                                       
 with Alpha
-as(select tran_date,sum(total_amt) as Total_amount from P_Retail_sales.customers as C
+as(select tran_date,sum(total_amt) as Total_amount 
+from P_Retail_sales.customers as C
 inner join P_Retail_sales.Transactions1 as T
 on T.cust_id = C.customer_id
 where datediff(year,DOB,getdate()) between 25 and 35
@@ -212,15 +222,18 @@ limit 1;
 
 -- #14. Product categories having average revenues greater than the overall average revenue.
 
-select prod_cat,round(avg(total_amt), 2) as Averages from P_Retail_sales.Transactions1 as T
+select prod_cat,round(avg(total_amt), 2) as Averages 
+from P_Retail_sales.Transactions1 as T
 inner join P_Retail_sales.prod_cat_info as P
 on T.prod_cat_code = P.prod_cat_code
 group by prod_cat
-having avg(total_amt) > (select avg(total_amt) from P_Retail_sales.Transactions1)
+having avg(total_amt) > (select avg(total_amt) 
+from P_Retail_sales.Transactions1)
 
 -- #15. Average and total revenue by each subcategory belonging to top five categories as per quantity sold
 
-select (prod_cat), count(Qty) as Quantity_sold from P_Retail_sales.Transactions1 as T
+select (prod_cat), count(Qty) as Quantity_sold 
+from P_Retail_sales.Transactions1 as T
 inner join P_Retail_sales.prod_cat_info as P
 on T.prod_cat_code = T.prod_cat_code
 where total_amt > 0
@@ -231,15 +244,17 @@ limit 5;
 select prod_cat, prod_subcat,
 round(sum(total_amt),3) as Total_amount, 
 round(avg(total_amt),3) as Avg_amount 
-from P_Retail_sales.Transactions1 as T inner join P_Retail_sales.prod_cat_info as P
+from P_Retail_sales.Transactions1 as T 
+inner join P_Retail_sales.prod_cat_info as P
 on T.prod_cat_code = P.prod_cat_code
-where total_amt > 0 and prod_cat in ('Books','Electronics','Home and kitchen','Footwear','Clothing') 
+where total_amt > 0 and 
+prod_cat in ('Books','Electronics','Home and kitchen','Footwear','Clothing') 
 group by prod_cat, prod_subcat
 order by 
-case          when prod_cat = 'Books' then 1
-              when prod_cat = 'Electronics' then 2
-			  when prod_cat = 'Home and kitchen' then 3
-			  when prod_cat = 'Footwear' then 4
-			  else 5
-			  end;
+case    when prod_cat = 'Books' then 1
+        when prod_cat = 'Electronics' then 2
+	when prod_cat = 'Home and kitchen' then 3
+        when prod_cat = 'Footwear' then 4
+	else 5
+	end;
 
