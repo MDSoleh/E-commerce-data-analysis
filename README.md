@@ -66,7 +66,7 @@ order by tran_date desc;
 select prod_subcat, prod_cat from p_retail_sales.prod_cat_info
 where prod_subcat ='DIY';
 
-# --------------------------DATA ANALYSIS--------------------------------------------------
+# -------DATA ANALYSIS-------------
 
 ### #1. Most frequently used channel for tansactions. 
 
