@@ -24,8 +24,8 @@ select * from p_retail_sales.prod_cat_info;
 select * from p_retail_sales.transactions;
 select * from p_retail_sales.transactions1;
 
-	![Screenshot 2024-04-26 065822](https://github.com/MDSoleh/E-commerce-data-analysis/assets/99492800/aef8025c-96a2-4a14-b065-8a5651d0b773)
 
+![Screenshot 2024-04-26 065822](https://github.com/MDSoleh/E-commerce-data-analysis/assets/99492800/2ce22a73-8c37-482e-9c30-c85b8a14ff61)
 
 # -- ------DATA PREPARATION AND UNDERSTANDING-----
 
