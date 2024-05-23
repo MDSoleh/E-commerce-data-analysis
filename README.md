@@ -19,10 +19,7 @@ Three data tables are used in the analysis:
 #CREATE DATABASE P_Retail_sales;
 USE P_Retail_sales;
 
-select * from p_retail_sales.customers;
-select * from p_retail_sales.prod_cat_info;
-select * from p_retail_sales.transactions;
-select * from p_retail_sales.transactions1;
+
 
 
 ![Screenshot 2024-04-26 065822](https://github.com/MDSoleh/E-commerce-data-analysis/assets/99492800/2ce22a73-8c37-482e-9c30-c85b8a14ff61)
@@ -32,52 +29,42 @@ select * from p_retail_sales.transactions1;
 
 ##### -- ------DATA PREPARATION AND UNDERSTANDING-----
 
-### #1. Total number of rows in each table of the database:
+### #1. **Total number of rows in each table of the database:**
 
-select count(*) as Cust_rows from p_retail_sales.customers union
-select count(*) as Prod_rows from p_retail_sales.prod_cat_info union
-select count(*) as tran_rows from p_retail_sales.transactions;
+
 ![Screenshot 2024-04-26 070118](https://github.com/MDSoleh/E-commerce-data-analysis/assets/99492800/bc42c733-e4d5-4da7-9dd5-1f8888b4af2e)
 
 
-### #2. Number of transactions that have a return:
+### #2. **Number of transactions that have a return:**
 
-select count(transaction_id) as tran_returns from p_retail_sales.transactions
-where total_amt <0 
 ![Screenshot 2024-04-26 070209](https://github.com/MDSoleh/E-commerce-data-analysis/assets/99492800/a2471dfb-a043-43fe-8f8d-61b0ad971037)
 
-### -- #3. date variables into valid date format:
+### -- #3. **date variables into valid date format:**
 
 -- update transactions set tran_date = str_to_date(tran_date,'%d-%m-%y')
 -- WHERE tran_date IS NOT NULL AND tran_date != '';
 
-### #4. Time range of transaction data available for analysis:
+### #4. **Time range of transaction data available for analysis:**
 
-select distinct year(tran_date) from p_retail_sales.transactions1;
+*select tran_date, day(tran_date) as Date, month(tran_date) as Month_date from p_retail_sales.transactions1 
+order by tran_date desc;*
 
-select distinct month(tran_date) from p_retail_sales.transactions1
+***select datediff(year,'2011-01-25','2014-02-22') from transactions1;***
 
-select tran_date, day(tran_date) as Days, month(tran_date) as Month, year(tran_date) as Years 
-from p_retail_sales.Transactions1;
+ ***SELECT  DATEDIFF(year,'2011-01-02','2014-12-02')as Years from transactions
+ limit 100,***
+ ***DATEDIFF(month, '2011-01-02','2014-12-02')as Months,
+ DATEDIFF(day, '2011-01-02','2014-12-02')as Days from p_retail_sales.transactions1***
 
-select tran_date, day(tran_date) as Date, month(tran_date) as Month_date from p_retail_sales.transactions1 
-order by tran_date desc;
-
--- select datediff(year,'2011-01-25','2014-02-22') from transactions1;
-
--- SELECT  DATEDIFF(year,'2011-01-02','2014-12-02')as Years from transactions
--- limit 100,
--- DATEDIFF(month, '2011-01-02','2014-12-02')as Months,
--- DATEDIFF(day, '2011-01-02','2014-12-02')as Days from p_retail_sales.transactions1
 ![Screenshot 2024-04-26 070616](https://github.com/MDSoleh/E-commerce-data-analysis/assets/99492800/c56b89ee-5b0c-40aa-b71b-5cabdd9241c0)
 
-### #5. Sub-category DIY belongs to which product category
+ #5. **Sub-category DIY belongs to which product category**
 
 select prod_subcat, prod_cat from p_retail_sales.prod_cat_info
 where prod_subcat ='DIY';
 ![Screenshot 2024-04-26 070657](https://github.com/MDSoleh/E-commerce-data-analysis/assets/99492800/934a31cd-f804-412c-b5b4-683e4bce2952)
 
-# -------DATA ANALYSIS-------------
+ ## ------DATA ANALYSIS-------------
 
 ### #1. Most frequently used channel for tansactions. 
 
