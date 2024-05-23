@@ -1,22 +1,22 @@
-# E-commerce-data-analysis
+#### E-commerce-data-analysis
 Data analysis of e-commerce retail data
 
 # Bussiness context:
 Using the data from retail store to analyse the behaviour of customers and order patterns.
 
-# Data Availibility:
-Three tables are used with names:
+## Data Availibility:
+Three data tables are used in the analysis:
 
-Customers (customer demographics)
+***Customers*** (customer demographics)
 
-Transactions (customer transaction details)
+***Transactions*** (customer transaction details)
 
-Product category (product category and sub-category information)
+***Product category*** (product category and sub-category information)
 
 
-# -- -----BASIC SQL CASE STUDY-----
+## -- -----BASIC SQL CASE STUDY-----
 
-CREATE DATABASE P_Retail_sales;
+#CREATE DATABASE P_Retail_sales;
 USE P_Retail_sales;
 
 select * from p_retail_sales.customers;
@@ -30,7 +30,7 @@ select * from p_retail_sales.transactions1;
 ![Screenshot 2024-04-26 065913](https://github.com/MDSoleh/E-commerce-data-analysis/assets/99492800/9d24659b-1656-4c01-b7b4-84decc594f52)
 ![Screenshot 2024-04-26 065951](https://github.com/MDSoleh/E-commerce-data-analysis/assets/99492800/d4e03b37-b532-44a3-b57d-cdbf98258abb)
 
-# -- ------DATA PREPARATION AND UNDERSTANDING-----
+##### -- ------DATA PREPARATION AND UNDERSTANDING-----
 
 ### #1. Total number of rows in each table of the database:
 
