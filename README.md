@@ -1,5 +1,5 @@
-#### E-commerce-data-analysis
-Data analysis of e-commerce retail data
+******E-commerce-data-analysis******
+**Data analysis of e-commerce retail data**
 
 # Bussiness context:
 Using the data from retail store to analyse the behaviour of customers and order patterns.
